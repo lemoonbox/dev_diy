@@ -437,3 +437,7 @@ def lineup_test(request):
             data['state']='error'
             data['L_state']="error"
             return HttpResponse(json.dumps(data), 'application/json')
+
+def pay_test(request):
+    if request.method == "GET":
+        return render(request, 'v2_dev_moon/payment_test.html', {})

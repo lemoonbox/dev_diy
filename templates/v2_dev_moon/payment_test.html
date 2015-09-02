@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="https://d10ajoocuyu32n.cloudfront.net/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment.js"></script>
+    <script type="text/javascript">
+        var IMP = window.IMP;
+        IMP.init('imp63695163');
+        $(document).ready(function(){
+            $('#buy').click(function(){
+            IMP.request_pay({
+                pay_method : 'card',
+                merchant_uid : 'merchant_',
+                name : '주문명:결제테스트',
+                amount : 14000,
+                buyer_email : 'lemoonbox@gmail.com',
+                buyer_name : '문현철',
+                buyer_tel : '010-3379-4189',
+                buyer_addr : '서울특별시 강남구 삼성동',
+                buyer_postcode : '123-456',
+                vbank_due : '20161231',
+            }, function(rsp) {
+                if ( rsp.success ) {
+                    var msg = '결제가 완료되었습니다.';
+                    msg += '고유ID : ' + rsp.imp_uid;
+                    msg += '상점 거래ID : ' + rsp.merchant_uid;
+                    msg += '결제 금액 : ' + rsp.paid_amount;
+                    msg += '카드 승인번호 : ' + rsp.apply_num;
+                    consol.log(msg)
+                } else {
+                    var msg = '결제에 실패하였습니다.';
+                    msg += '에러내용 : ' + rsp.error_msg;
+                    consol.log(msg)
+
+                }
+            });
+            });
+        });
+    </script>
+</head>
+<body>
+        <p id="username_error"></p>
+        <button class="btn btn-primary btn-block" value="결제" id="buy">결제하기</button>
+</body>
+</html>
